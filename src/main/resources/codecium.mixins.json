@@ -3,7 +3,8 @@
   "package": "net.errorcraft.codecium.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "mojang.serialization.CodecExtender"
+    "mojang.serialization.CodecExtender",
+    "mojang.serialization.codecs.EitherCodecExtender"
   ],
   "injectors": {
     "defaultRequire": 1
