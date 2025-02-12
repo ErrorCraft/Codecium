@@ -3,7 +3,10 @@
   "package": "net.errorcraft.codecium.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "minecraft.nbt.NbtOpsExtender",
     "mojang.serialization.CodecExtender",
+    "mojang.serialization.JavaOpsExtender",
+    "mojang.serialization.JsonOpsExtender",
     "mojang.serialization.codecs.EitherCodecExtender"
   ],
   "injectors": {
