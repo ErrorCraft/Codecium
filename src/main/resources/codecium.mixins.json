@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "minecraft.nbt.NbtOpsExtender",
+    "minecraft.util.dynamic.CodecsExtender",
     "mojang.serialization.CodecExtender",
     "mojang.serialization.JavaOpsExtender",
     "mojang.serialization.JsonOpsExtender",
