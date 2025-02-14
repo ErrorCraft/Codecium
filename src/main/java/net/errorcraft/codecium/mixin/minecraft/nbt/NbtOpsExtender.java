@@ -20,7 +20,7 @@ public class NbtOpsExtender {
         remap = false
     )
     private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
-        return () -> "Not a number: " + input;
+        return () -> "Element is not a number: " + input;
     }
 
     @ModifyArg(
@@ -32,7 +32,19 @@ public class NbtOpsExtender {
         remap = false
     )
     private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
-        return () -> "Not a string: " + input;
+        return () -> "Element is not a string: " + input;
+    }
+
+    @ModifyArg(
+        method = { "getMapValues(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMap(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
+        ),
+        remap = false
+    )
+    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
+        return () -> "Element is not a map: " + input;
     }
 
     @ModifyArg(
@@ -44,6 +56,6 @@ public class NbtOpsExtender {
         remap = false
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
-        return () -> "Not a list: " + input;
+        return () -> "Element is not a list: " + input;
     }
 }

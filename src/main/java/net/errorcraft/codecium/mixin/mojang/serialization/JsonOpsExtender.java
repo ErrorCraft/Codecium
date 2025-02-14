@@ -25,6 +25,40 @@ public class JsonOpsExtender {
     }
 
     @ModifyArg(
+        method = "getNumberValue(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            ordinal = 1
+        )
+    )
+    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+        return () -> "Element is not a number: " + input;
+    }
+
+    @ModifyArg(
+        method = "getBooleanValue(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
+        )
+    )
+    private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+        return () -> "Element is not a boolean: " + input;
+    }
+
+    @ModifyArg(
+        method = "getStringValue(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
+        )
+    )
+    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+        return () -> "Element is not a string: " + input;
+    }
+
+    @ModifyArg(
         method = { "getMapValues(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;", "getMap(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
@@ -32,7 +66,7 @@ public class JsonOpsExtender {
         )
     )
     private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
-        return () -> "Not a map: " + input;
+        return () -> "Element is not a map: " + input;
     }
 
     @ModifyArg(
@@ -43,6 +77,6 @@ public class JsonOpsExtender {
         )
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
-        return () -> "Not a list: " + input;
+        return () -> "Element is not a list: " + input;
     }
 }
