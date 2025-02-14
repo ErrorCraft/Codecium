@@ -47,7 +47,7 @@ Could not decode either:
 ```
 - Type error containing inner errors: `either`
 - Description collection of inner errors: `Could not decode either`
-- Each inner error and its assigned integer:
+- Each inner error and its assigned key:
     - `Inner error: 123`, `1`
     - `Other inner error: 123`, `2`
 
