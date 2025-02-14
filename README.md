@@ -33,7 +33,7 @@ For example, require `Float must be at least 1.0: -100.0` over `Float must be at
 > If an error contains one or more inner errors (an error collection), it must **always** contain the following:
 - The type of the error containing the inner errors.
 - The description for the collection of the inner errors.
-- Each inner error as described by the rules, separated by an incrementing integer starting at 1, a colon (*Unicode* code point 58) and a space (*Unicode* code point 32).
+- Each inner error as described by the rules, separated by a unique key (if none exists an incrementing integer starting from 1), a colon (*Unicode* code point 58) and a space (*Unicode* code point 32).
 
 > **Always** expand the inner errors of error collections as much as possible for maximum readability.
 - **Always** use two space characters (*Unicode* code point 32) for indenting inner errors, **never** horizontal tabs (*Unicode* code point 9) or any other whitespace characters.
