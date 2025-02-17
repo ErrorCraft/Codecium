@@ -1,10 +1,14 @@
 package net.errorcraft.codecium.mixin.mojang.serialization;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.JsonOps;
 import net.errorcraft.codecium.util.codec.ExceptionUtil;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
@@ -78,5 +82,21 @@ public class JsonOpsExtender {
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
         return () -> "Element is not a list: " + input;
+    }
+
+    @Mixin(targets = "com/mojang/serialization/JsonOps$1")
+    public static class MapLikeExtender<T> {
+        @Shadow
+        @Final
+        JsonObject val$object;
+
+        /**
+         * @author ErrorCraft
+         * @reason Uses the element itself instead of a wrapped element.
+         */
+        @Overwrite
+        public String toString() {
+            return this.val$object.toString();
+        }
     }
 }

@@ -2,10 +2,14 @@ package net.errorcraft.codecium.mixin.mojang.serialization;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.JavaOps;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 @Mixin(value = JavaOps.class, remap = false)
@@ -15,8 +19,7 @@ public class JavaOpsExtender {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+        )
     )
     private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
         return () -> "Element is not a number: " + input;
@@ -27,8 +30,7 @@ public class JavaOpsExtender {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+        )
     )
     private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
         return () -> "Element is not a boolean: " + input;
@@ -39,8 +41,7 @@ public class JavaOpsExtender {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+        )
     )
     private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
         return () -> "Element is not a string: " + input;
@@ -51,8 +52,7 @@ public class JavaOpsExtender {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+        )
     )
     private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, ordinal = 0) final Object input) {
         return () -> "Element is not a map: " + input;
@@ -67,5 +67,21 @@ public class JavaOpsExtender {
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, ordinal = 0) final Object input) {
         return () -> "Element is not a list: " + input;
+    }
+
+    @Mixin(targets = "com/mojang/serialization/JavaOps$1")
+    public static class MapLikeExtender<T> {
+        @Shadow
+        @Final
+        Map<T, T> val$map;
+
+        /**
+         * @author ErrorCraft
+         * @reason Uses the element itself instead of a wrapped element.
+         */
+        @Overwrite
+        public String toString() {
+            return this.val$map.toString();
+        }
     }
 }
