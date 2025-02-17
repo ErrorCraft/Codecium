@@ -48,7 +48,7 @@ public class NbtOpsExtender {
     }
 
     @ModifyArg(
-        method = "getStream(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
+        method = { "getStream(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getList(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
