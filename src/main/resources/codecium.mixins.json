@@ -6,9 +6,12 @@
     "minecraft.nbt.NbtOpsExtender",
     "minecraft.util.dynamic.CodecsExtender",
     "mojang.serialization.CodecExtender",
+    "mojang.serialization.DataResultExtender",
     "mojang.serialization.JavaOpsExtender",
     "mojang.serialization.JsonOpsExtender",
-    "mojang.serialization.codecs.EitherCodecExtender"
+    "mojang.serialization.codecs.EitherCodecExtender",
+    "mojang.serialization.codecs.OptionalFieldCodecExtender",
+    "mojang.serialization.codecs.RecordCodecBuilderExtender$RecordMapCodecExtender"
   ],
   "injectors": {
     "defaultRequire": 1

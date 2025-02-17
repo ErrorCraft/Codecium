@@ -1,7 +1,7 @@
 package net.errorcraft.codecium.mixin.mojang.serialization;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
+import com.mojang.serialization.*;
+import net.errorcraft.codecium.serialization.FieldMapCodec;
 import net.errorcraft.codecium.util.codec.NumberUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -9,9 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Mixin(value = Codec.class, remap = false)
-public interface CodecExtender {
+public interface CodecExtender<A> {
     @Redirect(
         method = "intRange",
         at = @At(
@@ -61,5 +62,16 @@ public interface CodecExtender {
             }
             return DataResult.success(value);
         });
+    }
+
+    @Redirect(
+        method = "fieldOf(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/MapCodec;of(Lcom/mojang/serialization/MapEncoder;Lcom/mojang/serialization/MapDecoder;Ljava/util/function/Supplier;)Lcom/mojang/serialization/MapCodec;"
+        )
+    )
+    private MapCodec<A> createFieldCodecPassName(MapEncoder<A> encoder, MapDecoder<A> decoder, Supplier<String> nameSupplier, final String name) {
+        return new FieldMapCodec<>(name, encoder, decoder, nameSupplier);
     }
 }
