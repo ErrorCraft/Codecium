@@ -10,6 +10,7 @@
     "mojang.serialization.JavaOpsExtender",
     "mojang.serialization.JsonOpsExtender",
     "mojang.serialization.codecs.EitherCodecExtender",
+    "mojang.serialization.codecs.FieldDecoderExtender",
     "mojang.serialization.codecs.OptionalFieldCodecExtender",
     "mojang.serialization.codecs.RecordCodecBuilderExtender$RecordMapCodecExtender"
   ],
