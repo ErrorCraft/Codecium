@@ -84,8 +84,8 @@ public class JsonOpsExtender {
         return () -> "Element is not a list: " + input;
     }
 
-    @Mixin(targets = "com/mojang/serialization/JsonOps$1")
-    public static class MapLikeExtender<T> {
+    @Mixin(targets = "com/mojang/serialization/JsonOps$1", remap = false)
+    public static class MapLikeExtender {
         @Shadow
         @Final
         JsonObject val$object;

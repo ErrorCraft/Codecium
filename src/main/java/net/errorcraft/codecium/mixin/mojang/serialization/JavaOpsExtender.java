@@ -69,11 +69,11 @@ public class JavaOpsExtender {
         return () -> "Element is not a list: " + input;
     }
 
-    @Mixin(targets = "com/mojang/serialization/JavaOps$1")
-    public static class MapLikeExtender<T> {
+    @Mixin(targets = "com/mojang/serialization/JavaOps$1", remap = false)
+    public static class MapLikeExtender {
         @Shadow
         @Final
-        Map<T, T> val$map;
+        Map<Object, Object> val$map;
 
         /**
          * @author ErrorCraft

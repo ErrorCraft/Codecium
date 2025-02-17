@@ -64,7 +64,7 @@ public class NbtOpsExtender {
     }
 
     @Mixin(targets = "net/minecraft/nbt/NbtOps$1")
-    public static class MapLikeExtender<T> {
+    public static class MapLikeExtender {
         @Shadow
         @Final
         NbtCompound field_25129;
