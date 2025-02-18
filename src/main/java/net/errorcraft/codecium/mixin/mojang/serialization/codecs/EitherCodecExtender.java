@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 @Mixin(value = EitherCodec.class, remap = false)
@@ -22,9 +23,16 @@ public class EitherCodecExtender<F, S> {
         )
     )
     private <T> Supplier<String> useBetterErrorMessage(Supplier<String> message, @Local(name = "firstRead") final DataResult<Pair<Either<F, S>, T>> firstRead, @Local(name = "secondRead") final DataResult<Pair<Either<F, S>, T>> secondRead) {
-        return () -> "Failed to decode either:\n" + StringUtil.indent(
-            "1: " + firstRead.error().orElseThrow().message() + "\n" +
-            "2: " + secondRead.error().orElseThrow().message()
-        );
+        return () -> {
+            String first = firstRead.error().orElseThrow().message();
+            String second = secondRead.error().orElseThrow().message();
+            if (Objects.equals(first, second)) {
+                return first;
+            }
+            return "Failed to decode either:\n" + StringUtil.indent(
+                "1: " + first + "\n" +
+                "2: " + second
+            );
+        };
     }
 }
