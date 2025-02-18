@@ -163,5 +163,7 @@ These are commonly used words in *Codecs* with their descriptions.
 | Map        | An unordered collection of fields.                                                                              |
 | List       | An ordered collection of values accessible by index.                                                            |
 | Size       | An integer for the number of values in a collection.                                                            |
-| Too large  | A collection that has too many values.                                                                          |
-| Too small  | A collection that has too few values.                                                                           |
+| Too large  | A map that has too many fields.                                                                                 |
+| Too small  | A map that has too few fields.                                                                                  |
+| Too long   | A list that has too many values.                                                                                |
+| Too short  | A list that has too few values.                                                                                 |
