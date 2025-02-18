@@ -2,6 +2,7 @@ package net.errorcraft.codecium.mixin.mojang.serialization;
 
 import com.mojang.serialization.*;
 import net.errorcraft.codecium.serialization.FieldMapCodec;
+import net.errorcraft.codecium.util.EnglishUtil;
 import net.errorcraft.codecium.util.codec.NumberUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -55,10 +56,10 @@ public interface CodecExtender<A> {
         return Codec.STRING.validate(value -> {
             final int length = value.length();
             if (length < minSize) {
-                return DataResult.error(() -> "String must have at least " + minSize + " characters, but got " + length + ": \"" + value + "\"");
+                return DataResult.error(() -> "String must have at least " + minSize + " " + EnglishUtil.pluralize(minSize, "character") + ", but got " + length + ": \"" + value + "\"");
             }
             if (length > maxSize) {
-                return DataResult.error(() -> "String must have at most " + maxSize + " characters, but got " + length + ": \"" + value + "\"");
+                return DataResult.error(() -> "String must have at most " + maxSize + " " + EnglishUtil.pluralize(minSize, "character") + ", but got " + length + ": \"" + value + "\"");
             }
             return DataResult.success(value);
         });
