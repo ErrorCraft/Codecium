@@ -16,6 +16,7 @@
     "mojang.serialization.codecs.BaseMapCodecExtender",
     "mojang.serialization.codecs.EitherCodecExtender",
     "mojang.serialization.codecs.FieldDecoderExtender",
+    "mojang.serialization.codecs.KeyDispatchCodecExtender",
     "mojang.serialization.codecs.ListCodecExtender",
     "mojang.serialization.codecs.OptionalFieldCodecExtender",
     "mojang.serialization.codecs.RecordCodecBuilderExtender$RecordMapCodecExtender"
