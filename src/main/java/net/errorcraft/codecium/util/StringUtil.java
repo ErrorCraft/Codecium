@@ -1,6 +1,9 @@
 package net.errorcraft.codecium.util;
 
+import com.mojang.serialization.DataResult;
+
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class StringUtil {
@@ -30,5 +33,19 @@ public class StringUtil {
         }
         builder.setLength(builder.length() - 1);
         return builder.toString();
+    }
+
+    public static <T> Supplier<String> supplyEitherErrorMessage(final DataResult<T> first, final DataResult<T> second) {
+        return () -> {
+            String firstMessage = first.error().orElseThrow().message();
+            String secondMessage = second.error().orElseThrow().message();
+            if (Objects.equals(firstMessage, secondMessage)) {
+                return firstMessage;
+            }
+            return "Failed to decode either:\n" + indent(
+                "1: " + firstMessage + "\n" +
+                "2: " + secondMessage
+            );
+        };
     }
 }

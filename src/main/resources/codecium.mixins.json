@@ -19,7 +19,8 @@
     "mojang.serialization.codecs.KeyDispatchCodecExtender",
     "mojang.serialization.codecs.ListCodecExtender",
     "mojang.serialization.codecs.OptionalFieldCodecExtender",
-    "mojang.serialization.codecs.RecordCodecBuilderExtender$RecordMapCodecExtender"
+    "mojang.serialization.codecs.RecordCodecBuilderExtender$RecordMapCodecExtender",
+    "mojang.serialization.codecs.XorCodecExtender"
   ],
   "injectors": {
     "defaultRequire": 1
