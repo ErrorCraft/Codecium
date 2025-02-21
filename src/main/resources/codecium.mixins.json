@@ -14,6 +14,7 @@
     "mojang.serialization.JsonOpsExtender$MapLikeExtender",
     "mojang.serialization.MapLikeExtender$ForMapExtender",
     "mojang.serialization.codecs.BaseMapCodecExtender",
+    "mojang.serialization.codecs.DispatchedMapCodecExtender",
     "mojang.serialization.codecs.EitherCodecExtender",
     "mojang.serialization.codecs.FieldDecoderExtender",
     "mojang.serialization.codecs.KeyDispatchCodecExtender",
