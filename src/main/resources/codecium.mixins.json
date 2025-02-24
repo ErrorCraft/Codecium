@@ -5,6 +5,9 @@
   "mixins": [
     "minecraft.nbt.NbtOpsExtender",
     "minecraft.nbt.NbtOpsExtender$MapLikeExtender",
+    "minecraft.registry.entry.RegistryElementCodecExtender",
+    "minecraft.registry.entry.RegistryEntryListCodecExtender",
+    "minecraft.registry.entry.RegistryFixedCodecExtender",
     "minecraft.util.dynamic.CodecsExtender",
     "mojang.serialization.CodecExtender",
     "mojang.serialization.DataResultExtender",
