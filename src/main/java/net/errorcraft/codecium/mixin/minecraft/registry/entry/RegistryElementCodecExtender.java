@@ -23,9 +23,9 @@ public class RegistryElementCodecExtender<E> {
         method = "encode(Lnet/minecraft/registry/entry/RegistryEntry;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) RegistryEntry<E> registryEntry) {
         return () -> "Holder " + registryEntry.getKey().orElseThrow().getValue() + " is not part of the current registry set";
@@ -36,9 +36,9 @@ public class RegistryElementCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 0
-        ),
-        remap = false
+            ordinal = 0,
+            remap = false
+        )
     )
     private Supplier<String> inaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
         return () -> "Registry " + this.registryRef.getValue() + " is inaccessible";
@@ -49,9 +49,9 @@ public class RegistryElementCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 1
-        ),
-        remap = false
+            ordinal = 1,
+            remap = false
+        )
     )
     private Supplier<String> inlinedHoldersDisallowedUseBetterErrorMessage(Supplier<String> message) {
         return () -> "Cannot decode a direct holder";

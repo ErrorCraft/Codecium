@@ -19,9 +19,9 @@ public class NbtOpsExtender {
         method = "getNumberValue(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
         return () -> "Element is not a number: " + input;
@@ -31,9 +31,9 @@ public class NbtOpsExtender {
         method = "getStringValue(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
         return () -> "Element is not a string: " + input;
@@ -43,9 +43,9 @@ public class NbtOpsExtender {
         method = { "getMapValues(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMap(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
         return () -> "Element is not a map: " + input;
@@ -55,9 +55,9 @@ public class NbtOpsExtender {
         method = { "getStream(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getList(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
         return () -> "Element is not a list: " + input;

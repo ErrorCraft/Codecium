@@ -25,9 +25,9 @@ public class RegistryFixedCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 0
-        ),
-        remap = false
+            ordinal = 0,
+            remap = false
+        )
     )
     private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) RegistryEntry<E> registryEntry) {
         return () -> "Holder " + registryEntry.getKey().orElseThrow().getValue() + " is not part of the current registry set";
@@ -38,9 +38,9 @@ public class RegistryFixedCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 1
-        ),
-        remap = false
+            ordinal = 1,
+            remap = false
+        )
     )
     private Supplier<String> encodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
         return () -> "Registry " + this.registry.getValue() + " is inaccessible";
@@ -62,9 +62,9 @@ public class RegistryFixedCodecExtender<E> {
         method = "decode",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> decodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
         return () -> "Registry " + this.registry.getValue() + " is inaccessible";

@@ -46,9 +46,9 @@ public class RegistryEntryListCodecExtender<E> {
         method = "encode(Lnet/minecraft/registry/entry/RegistryEntryList;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        ),
-        remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            remap = false
+        )
     )
     private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) RegistryEntryList<E> registryEntries) {
         return () -> "Registry tag " + registryEntries.getTagKey().orElseThrow().id() + " is not part of the current registry set";
