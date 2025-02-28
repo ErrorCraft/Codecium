@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.errorcraft.codecium.mixin.fabric",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "minecraft.nbt.NbtOpsExtender\u0024MapLikeExtender",
+    "minecraft.resources.HolderSetCodecExtender",
+    "minecraft.resources.RegistryFileCodecExtender",
+    "minecraft.resources.RegistryFixedCodecExtender",
+    "minecraft.util.dynamic.ExtraCodecsExtender"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
