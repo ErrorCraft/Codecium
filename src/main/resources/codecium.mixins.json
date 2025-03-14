@@ -3,6 +3,10 @@
   "package": "net.errorcraft.codecium.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "minecraft.command.argument.ItemPredicateArgumentTypeExtender$ComponentCheckExtender",
+    "minecraft.command.argument.ItemPredicateArgumentTypeExtender$SubPredicateCheckExtender",
+    "minecraft.command.argument.ItemStringReaderExtender$ReaderExtender",
+    "minecraft.command.argument.RegistryEntryArgumentTypeExtender",
     "minecraft.nbt.NbtOpsExtender",
     "minecraft.nbt.NbtOpsExtender$MapLikeExtender",
     "minecraft.registry.entry.RegistryElementCodecExtender",
