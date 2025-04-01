@@ -12,6 +12,8 @@
     "minecraft.registry.entry.RegistryElementCodecExtender",
     "minecraft.registry.entry.RegistryEntryListCodecExtender",
     "minecraft.registry.entry.RegistryFixedCodecExtender",
+    "minecraft.util.IdentifierExtender",
+    "minecraft.util.InvalidIdentifierExceptionExtender",
     "minecraft.util.dynamic.CodecsExtender",
     "mojang.serialization.CodecExtender",
     "mojang.serialization.DataResultExtender",
