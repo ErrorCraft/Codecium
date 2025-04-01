@@ -1,6 +1,7 @@
 package net.errorcraft.codecium.mixin.minecraft.nbt;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.serialization.DataResult;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -19,12 +20,12 @@ public class NbtOpsExtender {
         method = "getNumberValue(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            target = "Ljava/util/Optional;orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;",
             remap = false
         )
     )
-    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
-        return () -> "Element is not a number: " + input;
+    private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true) final NbtElement input) {
+        return () -> DataResult.error(() -> "Element is not a number: " + input);
     }
 
     @ModifyArg(

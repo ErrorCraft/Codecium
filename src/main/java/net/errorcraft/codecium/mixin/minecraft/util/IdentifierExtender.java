@@ -7,7 +7,6 @@ import net.minecraft.util.InvalidIdentifierException;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -49,9 +48,8 @@ public abstract class IdentifierExtender {
             target = "Lnet/minecraft/util/Identifier;isNamespaceValid(Ljava/lang/String;)Z"
         )
     )
-    @Unique
     private static boolean validateNamespaceUseBetterMessage(String namespace, String path) {
-        for (int i = 0; i < namespace.length(); ++i) {
+        for (int i = 0; i < namespace.length(); i++) {
             if (!isNamespaceCharacterValid(namespace.charAt(i))) {
                 InvalidIdentifierException exception = new InvalidIdentifierException("Invalid character '" + namespace.charAt(i) + "' in namespace of resource location");
                 ((InvalidIdentifierExceptionAccess) exception).codecium$setGivenIdentifier(namespace + NAMESPACE_SEPARATOR + path);
@@ -69,7 +67,7 @@ public abstract class IdentifierExtender {
         )
     )
     private static boolean validatePathUseBetterMessage(String path, String namespace) {
-        for (int i = 0; i < path.length(); ++i) {
+        for (int i = 0; i < path.length(); i++) {
             if (!isPathCharacterValid(path.charAt(i))) {
                 InvalidIdentifierException exception = new InvalidIdentifierException("Invalid character '" + path.charAt(i) + "' in path of resource location");
                 ((InvalidIdentifierExceptionAccess) exception).codecium$setGivenIdentifier(namespace + NAMESPACE_SEPARATOR + path);
