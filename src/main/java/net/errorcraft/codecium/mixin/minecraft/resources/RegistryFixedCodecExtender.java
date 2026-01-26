@@ -1,11 +1,11 @@
-package net.errorcraft.codecium.mixin.minecraft.registry.entry;
+package net.errorcraft.codecium.mixin.minecraft.resources;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryFixedCodec;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,10 +18,10 @@ import java.util.function.Supplier;
 public class RegistryFixedCodecExtender<E> {
     @Shadow
     @Final
-    private RegistryKey<? extends Registry<E>> registry;
+    private ResourceKey<? extends Registry<E>> registryKey;
 
     @ModifyArg(
-        method = "encode(Lnet/minecraft/registry/entry/RegistryEntry;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
+        method = "encode(Lnet/minecraft/core/Holder;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
@@ -29,12 +29,12 @@ public class RegistryFixedCodecExtender<E> {
             remap = false
         )
     )
-    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) RegistryEntry<E> registryEntry) {
-        return () -> "Holder " + registryEntry.getKey().orElseThrow().getValue() + " is not part of the current registry set";
+    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) Holder<E> registryEntry) {
+        return () -> "Holder " + registryEntry.unwrapKey().orElseThrow().location() + " is not part of the current registry set";
     }
 
     @ModifyArg(
-        method = "encode(Lnet/minecraft/registry/entry/RegistryEntry;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
+        method = "encode(Lnet/minecraft/core/Holder;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
@@ -43,7 +43,7 @@ public class RegistryFixedCodecExtender<E> {
         )
     )
     private Supplier<String> encodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
-        return () -> "Registry " + this.registry.getValue() + " is inaccessible";
+        return () -> "Registry " + this.registryKey.location() + " is inaccessible";
     }
 
     @ModifyArg(
@@ -67,7 +67,7 @@ public class RegistryFixedCodecExtender<E> {
         )
     )
     private Supplier<String> decodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
-        return () -> "Registry " + this.registry.getValue() + " is inaccessible";
+        return () -> "Registry " + this.registryKey.location() + " is inaccessible";
     }
 
     @ModifyArg(
@@ -78,7 +78,7 @@ public class RegistryFixedCodecExtender<E> {
             remap = false
         )
     )
-    private static Supplier<String> unknownRegistryEntryUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) Identifier id) {
+    private static Supplier<String> unknownRegistryEntryUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) ResourceLocation id) {
         return () -> "Cannot get a registry entry with id " + id;
     }
 }

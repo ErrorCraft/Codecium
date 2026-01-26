@@ -1,13 +1,13 @@
-package net.errorcraft.codecium.mixin.minecraft.command.argument;
+package net.errorcraft.codecium.mixin.minecraft.commands.arguments.item;
 
 import net.errorcraft.codecium.util.StringUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-public class ItemPredicateArgumentTypeExtender {
-    @Mixin(targets = "net/minecraft/command/argument/ItemPredicateArgumentType$ComponentCheck")
-    public static class ComponentCheckExtender {
+public class ItemPredicateArgumentExtender {
+    @Mixin(targets = "net/minecraft/commands/arguments/item/ItemPredicateArgument$ComponentWrapper")
+    public static class ComponentWrapperExtender {
         @ModifyArg(
             method = "method_58537",
             at = @At(
@@ -22,8 +22,8 @@ public class ItemPredicateArgumentTypeExtender {
         }
     }
 
-    @Mixin(targets = "net/minecraft/command/argument/ItemPredicateArgumentType$SubPredicateCheck")
-    public static class SubPredicateCheckExtender {
+    @Mixin(targets = "net/minecraft/commands/arguments/item/ItemPredicateArgument$PredicateWrapper")
+    public static class PredicateWrapperExtender {
         @ModifyArg(
             method = "method_58560",
             at = @At(

@@ -1,13 +1,13 @@
-package net.errorcraft.codecium.mixin.minecraft.command.argument;
+package net.errorcraft.codecium.mixin.minecraft.commands.arguments.item;
 
 import net.errorcraft.codecium.util.StringUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-public class ItemStringReaderExtender {
-    @Mixin(targets = "net/minecraft/command/argument/ItemStringReader$Reader")
-    public static class ReaderExtender {
+public class ItemParserExtender {
+    @Mixin(targets = "net/minecraft/commands/arguments/item/ItemParser$State")
+    public static class StateExtender {
         @ModifyArg(
             method = "method_57806",
             at = @At(

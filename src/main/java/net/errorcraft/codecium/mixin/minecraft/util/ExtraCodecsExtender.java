@@ -1,7 +1,7 @@
-package net.errorcraft.codecium.mixin.minecraft.util.dynamic;
+package net.errorcraft.codecium.mixin.minecraft.util;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.util.dynamic.Codecs;
+import net.minecraft.util.ExtraCodecs;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Mixin(Codecs.class)
-public class CodecsExtender {
+@Mixin(ExtraCodecs.class)
+public class ExtraCodecsExtender {
     @ModifyArg(
         method = "method_56907",
         at = @At(
@@ -29,13 +29,13 @@ public class CodecsExtender {
         method = "<clinit>",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/dynamic/Codecs;rangedInt(IILjava/util/function/Function;)Lcom/mojang/serialization/Codec;",
+            target = "Lnet/minecraft/util/ExtraCodecs;intRangeWithMessage(IILjava/util/function/Function;)Lcom/mojang/serialization/Codec;",
             ordinal = 0
         ),
         slice = @Slice(
             from = @At(
                 value = "FIELD",
-                target = "Lnet/minecraft/util/dynamic/Codecs;UNSIGNED_BYTE:Lcom/mojang/serialization/Codec;",
+                target = "Lnet/minecraft/util/ExtraCodecs;UNSIGNED_BYTE:Lcom/mojang/serialization/Codec;",
                 opcode = Opcodes.PUTSTATIC
             )
         )
@@ -48,13 +48,13 @@ public class CodecsExtender {
         method = "<clinit>",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/dynamic/Codecs;rangedInt(IILjava/util/function/Function;)Lcom/mojang/serialization/Codec;",
+            target = "Lnet/minecraft/util/ExtraCodecs;intRangeWithMessage(IILjava/util/function/Function;)Lcom/mojang/serialization/Codec;",
             ordinal = 0
         ),
         slice = @Slice(
             from = @At(
                 value = "FIELD",
-                target = "Lnet/minecraft/util/dynamic/Codecs;NON_NEGATIVE_INT:Lcom/mojang/serialization/Codec;",
+                target = "Lnet/minecraft/util/ExtraCodecs;NON_NEGATIVE_INT:Lcom/mojang/serialization/Codec;",
                 opcode = Opcodes.PUTSTATIC
             )
         )
@@ -67,7 +67,7 @@ public class CodecsExtender {
         method = "<clinit>",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/dynamic/Codecs;rangedInclusiveFloat(FFLjava/util/function/Function;)Lcom/mojang/serialization/Codec;"
+            target = "Lnet/minecraft/util/ExtraCodecs;floatRangeMinInclusiveWithMessage(FFLjava/util/function/Function;)Lcom/mojang/serialization/Codec;"
         )
     )
     private static Function<Float, String> nonNegativeFloat(Function<Float, String> messageFactory) {
@@ -78,7 +78,7 @@ public class CodecsExtender {
         method = "<clinit>",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/dynamic/Codecs;rangedFloat(FFLjava/util/function/Function;)Lcom/mojang/serialization/Codec;"
+            target = "Lnet/minecraft/util/ExtraCodecs;floatRangeMinExclusiveWithMessage(FFLjava/util/function/Function;)Lcom/mojang/serialization/Codec;"
         )
     )
     private static Function<Float, String> positiveFloat(Function<Float, String> messageFactory) {

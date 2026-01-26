@@ -1,12 +1,12 @@
-package net.errorcraft.codecium.mixin.minecraft.util;
+package net.errorcraft.codecium.mixin.minecraft;
 
 import net.errorcraft.codecium.access.minecraft.util.InvalidIdentifierExceptionAccess;
-import net.minecraft.util.InvalidIdentifierException;
+import net.minecraft.ResourceLocationException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(InvalidIdentifierException.class)
-public class InvalidIdentifierExceptionExtender extends RuntimeException implements InvalidIdentifierExceptionAccess {
+@Mixin(ResourceLocationException.class)
+public class IdentifierExceptionExtender extends RuntimeException implements InvalidIdentifierExceptionAccess {
     @Unique
     private String givenIdentifier;
 
@@ -15,6 +15,7 @@ public class InvalidIdentifierExceptionExtender extends RuntimeException impleme
         if (this.givenIdentifier == null) {
             return super.getMessage();
         }
+
         return super.getMessage() + ": " + this.givenIdentifier;
     }
 

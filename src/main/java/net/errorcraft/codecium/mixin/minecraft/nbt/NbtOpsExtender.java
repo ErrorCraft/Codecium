@@ -2,9 +2,9 @@ package net.errorcraft.codecium.mixin.minecraft.nbt;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.DataResult;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -17,50 +17,50 @@ import java.util.function.Supplier;
 @Mixin(NbtOps.class)
 public class NbtOpsExtender {
     @ModifyArg(
-        method = "getNumberValue(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
+        method = "getNumberValue(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
             target = "Ljava/util/Optional;orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;",
             remap = false
         )
     )
-    private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true) final NbtElement input) {
+    private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true) final Tag input) {
         return () -> DataResult.error(() -> "Element is not a number: " + input);
     }
 
     @ModifyArg(
-        method = "getStringValue(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;",
+        method = "getStringValue(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
             remap = false
         )
     )
-    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
+    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
         return () -> "Element is not a string: " + input;
     }
 
     @ModifyArg(
-        method = { "getMapValues(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getMap(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
+        method = { "getMapValues(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getMap(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
             remap = false
         )
     )
-    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
+    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
         return () -> "Element is not a map: " + input;
     }
 
     @ModifyArg(
-        method = { "getStream(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;", "getList(Lnet/minecraft/nbt/NbtElement;)Lcom/mojang/serialization/DataResult;" },
+        method = { "getStream(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getList(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
             remap = false
         )
     )
-    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final NbtElement input) {
+    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
         return () -> "Element is not a list: " + input;
     }
 
@@ -68,7 +68,7 @@ public class NbtOpsExtender {
     public static class MapLikeExtender {
         @Shadow
         @Final
-        NbtCompound field_25129;
+        CompoundTag val$tag;
 
         /**
          * @author ErrorCraft
@@ -76,7 +76,7 @@ public class NbtOpsExtender {
          */
         @Overwrite
         public String toString() {
-            return this.field_25129.toString();
+            return this.val$tag.toString();
         }
     }
 }
