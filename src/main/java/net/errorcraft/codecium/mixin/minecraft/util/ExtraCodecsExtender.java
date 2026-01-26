@@ -14,11 +14,10 @@ import java.util.function.Supplier;
 @Mixin(ExtraCodecs.class)
 public class ExtraCodecsExtender {
     @ModifyArg(
-        method = "method_56907",
+        method = "lambda$static$23",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private static Supplier<String> unsignedByteTooLarge(Supplier<String> message, @Local(argsOnly = true) final Integer value) {

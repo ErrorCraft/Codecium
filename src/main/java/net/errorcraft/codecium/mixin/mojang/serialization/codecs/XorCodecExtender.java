@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@Mixin(value = XorCodec.class, remap = false)
+@Mixin(XorCodec.class)
 public class XorCodecExtender<F, S> {
     @ModifyArg(
         method = "decode",

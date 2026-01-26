@@ -23,12 +23,11 @@ public class RegistryFileCodecExtender<E> {
         method = "encode(Lnet/minecraft/core/Holder;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) Holder<E> registryEntry) {
-        return () -> "Holder " + registryEntry.unwrapKey().orElseThrow().location() + " is not part of the current registry set";
+        return () -> "Holder " + registryEntry.unwrapKey().orElseThrow().identifier() + " is not part of the current registry set";
     }
 
     @ModifyArg(
@@ -36,12 +35,11 @@ public class RegistryFileCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 0,
-            remap = false
+            ordinal = 0
         )
     )
     private Supplier<String> inaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
-        return () -> "Registry " + this.registryKey.location() + " is inaccessible";
+        return () -> "Registry " + this.registryKey.identifier() + " is inaccessible";
     }
 
     @ModifyArg(
@@ -49,8 +47,7 @@ public class RegistryFileCodecExtender<E> {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 1,
-            remap = false
+            ordinal = 1
         )
     )
     private Supplier<String> inlinedHoldersDisallowedUseBetterErrorMessage(Supplier<String> message) {
@@ -58,14 +55,13 @@ public class RegistryFileCodecExtender<E> {
     }
 
     @ModifyArg(
-        method = "method_46624",
+        method = "lambda$decode$3",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static <E> Supplier<String> unknownRegistryEntryUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) ResourceKey<E> key) {
-        return () -> "Cannot get a registry entry with id " + key.location();
+    private static <E> Supplier<String> unknownHolderUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) ResourceKey<E> key) {
+        return () -> "Cannot get a holder with id " + key.identifier();
     }
 }

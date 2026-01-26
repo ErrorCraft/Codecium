@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
-@Mixin(value = BaseMapCodec.class, remap = false)
+@Mixin(BaseMapCodec.class)
 public interface BaseMapCodecExtender<K, V> {
     @Shadow
     Codec<K> keyCodec();

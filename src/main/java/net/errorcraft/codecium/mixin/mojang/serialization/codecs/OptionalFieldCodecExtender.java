@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
-@Mixin(value = OptionalFieldCodec.class, remap = false)
+@Mixin(OptionalFieldCodec.class)
 public class OptionalFieldCodecExtender<A> {
     @Shadow
     @Final

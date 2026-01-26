@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 import java.util.function.Supplier;
 
-@Mixin(value = ListCodec.class, remap = false)
+@Mixin(ListCodec.class)
 public class ListCodecExtender<E> implements ListCodecAccess {
     @Shadow
     @Final
@@ -70,7 +70,7 @@ public class ListCodecExtender<E> implements ListCodecAccess {
         return input;
     }
 
-    @Mixin(targets = "com/mojang/serialization/codecs/ListCodec$DecoderState", remap = false)
+    @Mixin(targets = "com/mojang/serialization/codecs/ListCodec$DecoderState")
     public static class DecoderStateExtender<T> {
         @Shadow
         @Final

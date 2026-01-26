@@ -20,8 +20,7 @@ public class NbtOpsExtender {
         method = "getNumberValue(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Ljava/util/Optional;orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;",
-            remap = false
+            target = "Ljava/util/Optional;orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;"
         )
     )
     private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true) final Tag input) {
@@ -32,8 +31,7 @@ public class NbtOpsExtender {
         method = "getStringValue(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
@@ -44,8 +42,7 @@ public class NbtOpsExtender {
         method = { "getMapValues(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getMapEntries(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getMap(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
@@ -56,8 +53,7 @@ public class NbtOpsExtender {
         method = { "getStream(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;", "getList(Lnet/minecraft/nbt/Tag;)Lcom/mojang/serialization/DataResult;" },
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {

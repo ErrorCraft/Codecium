@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Mixin(value = JavaOps.class, remap = false)
+@Mixin(JavaOps.class)
 public class JavaOpsExtender {
     @ModifyArg(
         method = "getNumberValue",
@@ -69,7 +69,7 @@ public class JavaOpsExtender {
         return () -> "Element is not a list: " + input;
     }
 
-    @Mixin(targets = "com/mojang/serialization/JavaOps$1", remap = false)
+    @Mixin(targets = "com/mojang/serialization/JavaOps$1")
     public static class MapLikeExtender {
         @Shadow
         @Final

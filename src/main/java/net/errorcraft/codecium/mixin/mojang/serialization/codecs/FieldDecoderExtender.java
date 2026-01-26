@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.Supplier;
 
-@Mixin(value = FieldDecoder.class, remap = false)
+@Mixin(FieldDecoder.class)
 public class FieldDecoderExtender {
     @Shadow
     @Final

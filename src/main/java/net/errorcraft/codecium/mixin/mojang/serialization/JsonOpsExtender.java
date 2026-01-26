@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.Supplier;
 
-@Mixin(value = JsonOps.class, remap = false)
+@Mixin(JsonOps.class)
 public class JsonOpsExtender {
     @ModifyArg(
         method = "getNumberValue(Lcom/google/gson/JsonElement;)Lcom/mojang/serialization/DataResult;",
@@ -84,7 +84,7 @@ public class JsonOpsExtender {
         return () -> "Element is not a list: " + input;
     }
 
-    @Mixin(targets = "com/mojang/serialization/JsonOps$1", remap = false)
+    @Mixin(targets = "com/mojang/serialization/JsonOps$1")
     public static class MapLikeExtender {
         @Shadow
         @Final

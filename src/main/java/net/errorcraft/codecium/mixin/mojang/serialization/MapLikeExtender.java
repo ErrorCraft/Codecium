@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.Map;
 
 public interface MapLikeExtender {
-    @Mixin(targets = "com/mojang/serialization/MapLike$1", remap = false)
+    @Mixin(targets = "com/mojang/serialization/MapLike$2")
     class ForMapExtender<T> {
         @Shadow
         @Final

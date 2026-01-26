@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.Supplier;
 
-@Mixin(value = EitherCodec.class, remap = false)
+@Mixin(EitherCodec.class)
 public class EitherCodecExtender<F, S> {
     @ModifyArg(
         method = "decode",

@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
-@Mixin(value = DispatchedMapCodec.class, remap = false)
+@Mixin(DispatchedMapCodec.class)
 public class DispatchedMapCodecExtender<K, V> {
     @Shadow
     @Final

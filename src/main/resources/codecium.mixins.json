@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "minecraft.IdentifierExceptionExtender",
-    "minecraft.commands.arguments.ResourceOrIdArgumentExtender",
+    "minecraft.commands.arguments.ResourceOrIdArgumentExtender$InlineResultExtender",
     "minecraft.commands.arguments.item.ItemParserExtender$StateExtender",
     "minecraft.commands.arguments.item.ItemPredicateArgumentExtender$ComponentWrapperExtender",
     "minecraft.commands.arguments.item.ItemPredicateArgumentExtender$PredicateWrapperExtender",

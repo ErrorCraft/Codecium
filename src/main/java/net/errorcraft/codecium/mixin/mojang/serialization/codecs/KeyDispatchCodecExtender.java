@@ -11,29 +11,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.Supplier;
 
-@Mixin(value = KeyDispatchCodec.class, remap = false)
+@Mixin(KeyDispatchCodec.class)
 public class KeyDispatchCodecExtender {
     @Shadow
     @Final
     private static String COMPRESSED_VALUE_KEY;
 
-    @Shadow
-    @Final
-    private String typeKey;
-
     @ModifyArg(
-        method = "decode",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        )
-    )
-    private <T> Supplier<String> noTypeKeyUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final MapLike<T> input) {
-        return () -> "Key '" + this.typeKey + "' must be present in map: " + input;
-    }
-
-    @ModifyArg(
-        method = "lambda$decode$3",
+        method = "lambda$decode$2",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"

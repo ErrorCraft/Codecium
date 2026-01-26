@@ -4,7 +4,7 @@ import com.mojang.serialization.DataResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = DataResult.class, remap = false)
+@Mixin(DataResult.class)
 public interface DataResultExtender {
     /**
      * @author ErrorCraft

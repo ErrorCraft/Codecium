@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Mixin(value = Codec.class, remap = false)
+@Mixin(Codec.class)
 public interface CodecExtender<A> {
     @Redirect(
         method = "intRange",

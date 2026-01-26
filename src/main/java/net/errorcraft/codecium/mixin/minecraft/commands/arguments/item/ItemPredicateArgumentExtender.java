@@ -9,11 +9,10 @@ public class ItemPredicateArgumentExtender {
     @Mixin(targets = "net/minecraft/commands/arguments/item/ItemPredicateArgument$ComponentWrapper")
     public static class ComponentWrapperExtender {
         @ModifyArg(
-            method = "method_58537",
+            method = "lambda$decode$0",
             at = @At(
                 value = "INVOKE",
-                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;",
-                remap = false
+                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;"
             ),
             index = 2
         )
@@ -25,11 +24,10 @@ public class ItemPredicateArgumentExtender {
     @Mixin(targets = "net/minecraft/commands/arguments/item/ItemPredicateArgument$PredicateWrapper")
     public static class PredicateWrapperExtender {
         @ModifyArg(
-            method = "method_58560",
+            method = "lambda$decode$0",
             at = @At(
                 value = "INVOKE",
-                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;",
-                remap = false
+                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;"
             ),
             index = 2
         )

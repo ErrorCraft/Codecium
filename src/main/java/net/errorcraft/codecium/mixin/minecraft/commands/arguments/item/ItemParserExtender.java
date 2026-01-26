@@ -9,11 +9,10 @@ public class ItemParserExtender {
     @Mixin(targets = "net/minecraft/commands/arguments/item/ItemParser$State")
     public static class StateExtender {
         @ModifyArg(
-            method = "method_57806",
+            method = "lambda$readComponent$0",
             at = @At(
                 value = "INVOKE",
-                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;",
-                remap = false
+                target = "Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;createWithContext(Lcom/mojang/brigadier/ImmutableStringReader;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;"
             ),
             index = 2
         )

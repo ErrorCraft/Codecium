@@ -31,11 +31,10 @@ public class HolderSetCodecExtender<E> {
     private static ResourceKey<? extends Registry<?>> tempRegistryKey;
 
     @ModifyArg(
-        method = "method_58027",
+        method = "lambda$lookupTag$0",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private static <E> Supplier<String> unknownRegistryTagUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) TagKey<E> tag) {
@@ -46,12 +45,11 @@ public class HolderSetCodecExtender<E> {
         method = "encode(Lnet/minecraft/core/HolderSet;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) HolderSet<E> registryEntries) {
-        return () -> "Registry tag " + registryEntries.unwrapKey().orElseThrow().location() + " is not part of the current registry set";
+    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) HolderSet<E> holderSet) {
+        return () -> "Registry tag " + holderSet.unwrapKey().orElseThrow().location() + " is not part of the current registry set";
     }
 
     @Inject(
@@ -63,15 +61,14 @@ public class HolderSetCodecExtender<E> {
     }
 
     @ModifyArg(
-        method = "method_40381",
+        method = "lambda$decodeWithoutRegistry$0",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            remap = false
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static <R> Supplier<String> inaccessibleRegistryUseBetterErrorMessage(Supplier<String> message, @Local Holder<R> entry) {
-        return () -> "Registry " + HolderSetCodecExtender.tempRegistryKey.location() + " is inaccessible for " + entry.unwrapKey().orElseThrow();
+    private static <R> Supplier<String> inaccessibleRegistryUseBetterErrorMessage(Supplier<String> message, @Local(name = "holder") Holder<R> holder) {
+        return () -> "Registry " + HolderSetCodecExtender.tempRegistryKey.identifier() + " is inaccessible for " + holder.unwrapKey().orElseThrow();
     }
 
     @Inject(
