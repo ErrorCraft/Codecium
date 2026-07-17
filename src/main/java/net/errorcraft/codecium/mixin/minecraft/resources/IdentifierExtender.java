@@ -20,12 +20,12 @@ public abstract class IdentifierExtender {
     public static char NAMESPACE_SEPARATOR;
 
     @Shadow
-    private static boolean validNamespaceChar(char character) {
+    private static boolean validNamespaceChar(char c) {
         return false;
     }
 
     @Shadow
-    public static boolean validPathChar(char character) {
+    public static boolean validPathChar(char c) {
         return false;
     }
 
@@ -36,8 +36,8 @@ public abstract class IdentifierExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static Supplier<String> identifierExceptionUseBetterMessage(Supplier<String> message, @Local(argsOnly = true) String id, @Local(name = "e") IdentifierException exception) {
-        return () -> ((IdentifierExceptionAccess) exception).codecium$messageWithoutId() + ": " + id;
+    private static Supplier<String> identifierExceptionUseBetterMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") String input, @Local(name = "e") IdentifierException e) {
+        return () -> ((IdentifierExceptionAccess) e).codecium$messageWithoutId() + ": " + input;
     }
 
     @Redirect(
@@ -47,7 +47,7 @@ public abstract class IdentifierExtender {
             target = "Lnet/minecraft/resources/Identifier;isValidNamespace(Ljava/lang/String;)Z"
         )
     )
-    private static boolean validateNamespaceUseBetterMessage(String namespace, String path) {
+    private static boolean validateNamespaceUseBetterMessage(String namespace, @Local(argsOnly = true, name = "path") String path) {
         for (int i = 0; i < namespace.length(); i++) {
             if (!validNamespaceChar(namespace.charAt(i))) {
                 IdentifierException exception = new IdentifierException("Invalid character '" + namespace.charAt(i) + "' in namespace of resource location");

@@ -31,7 +31,7 @@ public interface BaseMapCodecExtender<K, V> {
         )
     )
     @SuppressWarnings({ "OptionalUsedAsFieldOrParameterType", "OptionalGetWithoutIsPresent" })
-    private <T> Supplier<String> duplicateFieldUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final DynamicOps<T> ops, @Local(argsOnly = true) final Pair<T, T> pair, @Local final Optional<Pair<K, V>> entry) {
+    private <T> Supplier<String> duplicateFieldUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "ops") final DynamicOps<T> ops, @Local(argsOnly = true, name = "pair") final Pair<T, T> pair, @Local(name = "entry") final Optional<Pair<K, V>> entry) {
         return () -> "Duplicate field " + this.keyCodec().encodeStart(ops, entry.get().getFirst()).getOrThrow() + ": " + pair.getFirst();
     }
 
@@ -43,7 +43,7 @@ public interface BaseMapCodecExtender<K, V> {
             ordinal = 0
         )
     )
-    private <T> DataResult<K> addKeyToKeyErrorMessage(Codec<K> instance, final DynamicOps<T> dynamicOps, Object o, Operation<DataResult<K>> original, @Local(argsOnly = true) final Pair<T, T> pair) {
+    private <T> DataResult<K> addKeyToKeyErrorMessage(Codec<K> instance, final DynamicOps<T> dynamicOps, Object o, Operation<DataResult<K>> original, @Local(argsOnly = true, name = "pair") final Pair<T, T> pair) {
         return original.call(instance, dynamicOps, o)
             .mapError(message -> "For key " + pair.getFirst() + ": " + message);
     }
@@ -56,7 +56,7 @@ public interface BaseMapCodecExtender<K, V> {
             ordinal = 0
         )
     )
-    private <T> DataResult<V> addKeyToValueErrorMessage(DataResult<V> second, @Local(argsOnly = true) final Pair<T, T> pair) {
+    private <T> DataResult<V> addKeyToValueErrorMessage(DataResult<V> second, @Local(argsOnly = true, name = "pair") final Pair<T, T> pair) {
         return second.mapError(message -> "For value " + pair.getFirst() + ": " + message);
     }
 
@@ -67,7 +67,7 @@ public interface BaseMapCodecExtender<K, V> {
             target = "Lcom/mojang/serialization/DataResult;mapError(Ljava/util/function/UnaryOperator;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private <T> UnaryOperator<String> mapErrorsUseBetterErrorMessage(UnaryOperator<String> function, @Local final T errors) {
+    private UnaryOperator<String> mapErrorsUseBetterErrorMessage(UnaryOperator<String> function) {
         return message -> "Map has errors:\n" + StringUtil.indent(message);
     }
 }

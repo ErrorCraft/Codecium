@@ -21,7 +21,7 @@ public class JavaOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
+    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Object input) {
         return () -> "Element is not a number: " + input;
     }
 
@@ -32,7 +32,7 @@ public class JavaOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
+    private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Object input) {
         return () -> "Element is not a boolean: " + input;
     }
 
@@ -43,7 +43,7 @@ public class JavaOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Object input) {
+    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Object input) {
         return () -> "Element is not a string: " + input;
     }
 
@@ -54,7 +54,7 @@ public class JavaOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, ordinal = 0) final Object input) {
+    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Object input) {
         return () -> "Element is not a map: " + input;
     }
 
@@ -65,7 +65,7 @@ public class JavaOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, ordinal = 0) final Object input) {
+    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Object input) {
         return () -> "Element is not a list: " + input;
     }
 

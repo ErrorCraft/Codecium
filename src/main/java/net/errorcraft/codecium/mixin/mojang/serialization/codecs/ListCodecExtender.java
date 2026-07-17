@@ -40,7 +40,7 @@ public class ListCodecExtender<E> implements ListCodecAccess {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> tooShortUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final int size) {
+    private Supplier<String> tooShortUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "size") final int size) {
         return () -> "List must have at least " + this.minSize + " " + EnglishUtil.pluralize(this.minSize, "value") + ", but got " + size;
     }
 
@@ -51,7 +51,7 @@ public class ListCodecExtender<E> implements ListCodecAccess {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> tooLongUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final int size) {
+    private Supplier<String> tooLongUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "size") final int size) {
         return () -> "List must have at most " + this.maxSize + " " + EnglishUtil.pluralize(this.maxSize, "value") + ", but got " + size;
     }
 

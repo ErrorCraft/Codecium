@@ -26,8 +26,8 @@ public class RegistryFileCodecExtender<E> {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) Holder<E> registryEntry) {
-        return () -> "Holder " + registryEntry.unwrapKey().orElseThrow().identifier() + " is not part of the current registry set";
+    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") Holder<E> input) {
+        return () -> "Holder " + input.unwrapKey().orElseThrow().identifier() + " is not part of the current registry set";
     }
 
     @ModifyArg(
@@ -61,7 +61,7 @@ public class RegistryFileCodecExtender<E> {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static <E> Supplier<String> unknownHolderUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) ResourceKey<E> key) {
-        return () -> "Cannot get a holder with id " + key.identifier();
+    private static <E> Supplier<String> unknownHolderUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "elementKey") ResourceKey<E> elementKey) {
+        return () -> "Cannot get a holder with id " + elementKey.identifier();
     }
 }

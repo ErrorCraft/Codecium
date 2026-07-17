@@ -24,7 +24,7 @@ public class KeyDispatchCodecExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static <T> Supplier<String> noValueKeyUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final MapLike<T> input) {
+    private static <T> Supplier<String> noValueKeyUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final MapLike<T> input) {
         return () -> "Key '" + COMPRESSED_VALUE_KEY + "' must be present in map: " + input;
     }
 }
