@@ -24,7 +24,7 @@ public class JsonOpsExtender {
             ordinal = 0
         )
     )
-    private Supplier<String> notANumberWithExceptionUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input, @Local final NumberFormatException e) {
+    private Supplier<String> notANumberWithExceptionUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input, @Local(name = "e") final NumberFormatException e) {
         return () -> ExceptionUtil.errorMessage(e, input);
     }
 
@@ -36,7 +36,7 @@ public class JsonOpsExtender {
             ordinal = 1
         )
     )
-    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+    private Supplier<String> notANumberUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input) {
         return () -> "Element is not a number: " + input;
     }
 
@@ -47,7 +47,7 @@ public class JsonOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+    private Supplier<String> notABooleanUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input) {
         return () -> "Element is not a boolean: " + input;
     }
 
@@ -58,7 +58,7 @@ public class JsonOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input) {
         return () -> "Element is not a string: " + input;
     }
 
@@ -69,7 +69,7 @@ public class JsonOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input) {
         return () -> "Element is not a map: " + input;
     }
 
@@ -80,7 +80,7 @@ public class JsonOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final JsonElement input) {
+    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final JsonElement input) {
         return () -> "Element is not a list: " + input;
     }
 

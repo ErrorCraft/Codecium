@@ -23,7 +23,7 @@ public class NbtOpsExtender {
             target = "Ljava/util/Optional;orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;"
         )
     )
-    private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true) final Tag input) {
+    private Supplier<DataResult<Number>> notANumberUseBetterErrorMessage(Supplier<DataResult<Number>> supplier, @Local(argsOnly = true, name = "input") final Tag input) {
         return () -> DataResult.error(() -> "Element is not a number: " + input);
     }
 
@@ -34,7 +34,7 @@ public class NbtOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
+    private Supplier<String> notAStringUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Tag input) {
         return () -> "Element is not a string: " + input;
     }
 
@@ -45,7 +45,7 @@ public class NbtOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
+    private Supplier<String> notAMapUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Tag input) {
         return () -> "Element is not a map: " + input;
     }
 
@@ -56,7 +56,7 @@ public class NbtOpsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final Tag input) {
+    private Supplier<String> notAListUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final Tag input) {
         return () -> "Element is not a list: " + input;
     }
 

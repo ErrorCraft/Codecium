@@ -33,15 +33,15 @@ public class DispatchedMapCodecExtender<K, V> {
         )
     )
     @SuppressWarnings({ "OptionalUsedAsFieldOrParameterType", "OptionalGetWithoutIsPresent" })
-    private <T> Supplier<String> duplicateFieldUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final DynamicOps<T> ops, @Local(argsOnly = true) final Pair<T, T> pair, @Local final Optional<Pair<K, V>> entry) {
-        return () -> "Duplicate field " + this.keyCodec.encodeStart(ops, entry.get().getFirst()).getOrThrow() + ": " + pair.getFirst();
+    private <T> Supplier<String> duplicateFieldUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "ops") final DynamicOps<T> ops, @Local(argsOnly = true, name = "input") final Pair<T, T> input, @Local(name = "entry") final Optional<Pair<K, V>> entry) {
+        return () -> "Duplicate field " + this.keyCodec.encodeStart(ops, entry.get().getFirst()).getOrThrow() + ": " + input.getFirst();
     }
 
     @ModifyReturnValue(
         method = "parseEntry",
         at = @At("TAIL")
     )
-    private <T> DataResult<Unit> duplicateFieldUseBetterErrorMessage(DataResult<Unit> original, @Local(argsOnly = true) final Pair<T, T> input) {
+    private <T> DataResult<Unit> duplicateFieldUseBetterErrorMessage(DataResult<Unit> original, @Local(argsOnly = true, name = "input") final Pair<T, T> input) {
         return original.mapError(message -> "For field " + input.getFirst() + ": " + message);
     }
 

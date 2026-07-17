@@ -24,7 +24,7 @@ public class FieldDecoderExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private <T> Supplier<String> useBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true) final MapLike<T> input) {
+    private <T> Supplier<String> useBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") final MapLike<T> input) {
         return () -> "Key '" + this.name +  "' must be present in map: " + input;
     }
 }

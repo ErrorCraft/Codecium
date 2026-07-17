@@ -20,8 +20,8 @@ public class ExtraCodecsExtender {
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static Supplier<String> unsignedByteTooLarge(Supplier<String> message, @Local(argsOnly = true) final Integer value) {
-        return () -> "Unsigned byte must be at most 255: " + value;
+    private static Supplier<String> unsignedByteTooLarge(Supplier<String> message, @Local(argsOnly = true, name = "integer") final Integer integer) {
+        return () -> "Unsigned byte must be at most 255: " + integer;
     }
 
     @ModifyArg(
