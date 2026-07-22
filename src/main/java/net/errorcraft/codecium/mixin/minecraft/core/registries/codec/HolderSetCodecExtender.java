@@ -1,9 +1,9 @@
-package net.errorcraft.codecium.mixin.minecraft.resources;
+package net.errorcraft.codecium.mixin.minecraft.core.registries.codec;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.HolderSetCodec;
+import net.minecraft.core.registries.codec.HolderSetCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import org.spongepowered.asm.mixin.Final;
@@ -39,7 +39,7 @@ public class HolderSetCodecExtender<E> {
         )
     )
     private static <E> Supplier<String> unknownRegistryTagUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "key") TagKey<E> key) {
-        return () -> "Cannot get a registry tag with id " + key.location();
+        return () -> "Cannot get a tag with id " + key.location() + " from registry " + key.registry().identifier();
     }
 
     @ModifyArg(
@@ -50,8 +50,8 @@ public class HolderSetCodecExtender<E> {
             ordinal = 0
         )
     )
-    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") HolderSet<E> input) {
-        return () -> "Registry tag " + input.unwrapKey().orElseThrow().location() + " is not part of the current registry set";
+    private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(name = "named") HolderSet.Named<E> named) {
+        return () -> "Tag " + named.key().location() + " is not part of the current registry set";
     }
 
     @ModifyArg(
