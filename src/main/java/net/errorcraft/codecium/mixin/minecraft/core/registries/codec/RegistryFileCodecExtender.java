@@ -1,10 +1,9 @@
-package net.errorcraft.codecium.mixin.minecraft.resources;
+package net.errorcraft.codecium.mixin.minecraft.core.registries.codec;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.core.registries.codec.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.Supplier;
 
-@Mixin(RegistryFixedCodec.class)
-public class RegistryFixedCodecExtender<E> {
+@Mixin(RegistryFileCodec.class)
+public class RegistryFileCodecExtender<E> {
     @Shadow
     @Final
     private ResourceKey<? extends Registry<E>> registryKey;
@@ -24,8 +23,7 @@ public class RegistryFixedCodecExtender<E> {
         method = "encode(Lnet/minecraft/core/Holder;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 0
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
     private Supplier<String> invalidOwnerUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "input") Holder<E> input) {
@@ -33,47 +31,37 @@ public class RegistryFixedCodecExtender<E> {
     }
 
     @ModifyArg(
-        method = "encode(Lnet/minecraft/core/Holder;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
+        method = "decode",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
-            ordinal = 1
+            ordinal = 0
         )
     )
-    private Supplier<String> encodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
+    private Supplier<String> inaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
         return () -> "Registry " + this.registryKey.identifier() + " is inaccessible";
-    }
-
-    @ModifyArg(
-        method = "lambda$encode$2",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
-        )
-    )
-    private Supplier<String> directHolderUseBetterErrorMessage(Supplier<String> message) {
-        return () -> "Cannot encode a direct holder";
     }
 
     @ModifyArg(
         method = "decode",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
+            target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;",
+            ordinal = 1
         )
     )
-    private Supplier<String> decodeInaccessibleRegistryUseBetterErrorMessage(Supplier<String> message) {
-        return () -> "Registry " + this.registryKey.identifier() + " is inaccessible";
+    private Supplier<String> inlinedHoldersDisallowedUseBetterErrorMessage(Supplier<String> message) {
+        return () -> "Cannot decode a direct holder";
     }
 
     @ModifyArg(
-        method = "lambda$decode$1",
+        method = "lambda$decode$3",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
         )
     )
-    private static Supplier<String> unknownHolderUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "id") Identifier id) {
-        return () -> "Cannot get a holder with id " + id;
+    private static <E> Supplier<String> unknownHolderUseBetterErrorMessage(Supplier<String> message, @Local(argsOnly = true, name = "elementKey") ResourceKey<E> elementKey) {
+        return () -> "Cannot get a holder with id " + elementKey.identifier() + " from registry " + elementKey.registry();
     }
 }
