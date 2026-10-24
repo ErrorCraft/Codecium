@@ -18,7 +18,7 @@ public class KeyDispatchCodecExtender {
     private static String COMPRESSED_VALUE_KEY;
 
     @ModifyArg(
-        method = "lambda$decode$2",
+        method = "lambda$decode$1",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"

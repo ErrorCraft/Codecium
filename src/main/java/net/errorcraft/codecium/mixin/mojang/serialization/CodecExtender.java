@@ -1,6 +1,10 @@
 package net.errorcraft.codecium.mixin.mojang.serialization;
 
-import com.mojang.serialization.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.MapDecoder;
+import com.mojang.serialization.MapEncoder;
 import net.errorcraft.codecium.serialization.FieldMapCodec;
 import net.errorcraft.codecium.util.EnglishUtil;
 import net.errorcraft.codecium.util.codec.NumberUtil;
