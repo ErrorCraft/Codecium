@@ -46,7 +46,7 @@ public class DispatchedMapCodecExtender<K, V> {
     }
 
     @ModifyArg(
-        method = "lambda$decode$5",
+        method = "lambda$decode$0",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;mapError(Ljava/util/function/UnaryOperator;)Lcom/mojang/serialization/DataResult;"

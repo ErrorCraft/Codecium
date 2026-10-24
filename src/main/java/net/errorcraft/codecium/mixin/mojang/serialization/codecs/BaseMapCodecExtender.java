@@ -24,7 +24,7 @@ public interface BaseMapCodecExtender<K, V> {
     Codec<K> keyCodec();
 
     @ModifyArg(
-        method = "lambda$decode$3",
+        method = "lambda$decode$0",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;error(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;"
@@ -36,7 +36,7 @@ public interface BaseMapCodecExtender<K, V> {
     }
 
     @WrapOperation(
-        method = "lambda$decode$3",
+        method = "lambda$decode$0",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/Codec;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
@@ -49,7 +49,7 @@ public interface BaseMapCodecExtender<K, V> {
     }
 
     @ModifyArg(
-        method = "lambda$decode$3",
+        method = "lambda$decode$0",
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/serialization/DataResult;apply2stable(Ljava/util/function/BiFunction;Lcom/mojang/serialization/DataResult;)Lcom/mojang/serialization/DataResult;",
